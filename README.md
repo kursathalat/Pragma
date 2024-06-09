@@ -1,2 +1,2 @@
 # Pragma
-Generative LLMs trained on pragmatic data
+This repo contains some LLMs trained on pragmatic datasets
