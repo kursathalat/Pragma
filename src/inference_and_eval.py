@@ -9,15 +9,10 @@
 #!pip install -q -U peft datasets trl bitsandbytes -q
 
 # Importing necessary libraries
-from datasets import Dataset
 import pandas as pd
 from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score
-import re
-from peft import LoraConfig
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, TrainingArguments
-import os
-from trl import SFTTrainer
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 
 
 # load the model
