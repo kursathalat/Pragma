@@ -91,3 +91,36 @@ def get_predictions(dataset):
     gold_labels = dataset["label"]
     results = pd.DataFrame({'responses': response_list, 'completion': completion_list, 'predicted_labels': prediction_list, 'gold_labels': gold_labels})
     return results
+
+results = get_predictions(dataset)
+
+## Metrics
+
+set(results["predicted_labels"].unique()).issubset(set(results["gold_labels"].unique()))
+
+# metrics
+
+# to see if we have any other value
+set(results["predicted_labels"].unique()).issubset(set(results["gold_labels"].unique()))
+
+#if needed, ds with only valid labels
+#results_valid = llama_responses_test[llama_responses_test["predicted_labels"].isin(llama_responses_test["gold_labels"])]
+
+preds = list(results["predicted_labels"])
+labels = list(results["gold_labels"])
+
+def compute_metrics(preds, labels):
+  """
+  Compute the metrics for two lists of given labels.
+
+  preds: list of predicted labels
+  labels: list of gold labels
+  """
+  acc = accuracy_score(labels, preds)
+  f1 = f1_score(labels, preds, average='weighted')
+  precision = precision_score(labels, preds, average='weighted')
+  recall = recall_score(labels, preds, average='weighted')
+
+  return {"accuracy": acc, "f1_score": f1, "precision": precision, "recall": recall}
+
+metrics = compute_metrics(preds, labels)
